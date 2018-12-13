@@ -209,6 +209,10 @@ app.delete("/notes/delete/:note_id/:article_id", function(req, res) {
   });
 });
 
+// Setting up basic middleware for all Express requests
+app.use(bodyParser.urlencoded({ extended: false })); // Parses urlencoded bodies
+app.use(bodyParser.json()); // Send JSON responses
+
 // Listen on port
 app.listen(port, function() {
   console.log("App running on port " + port);
