@@ -1,3 +1,4 @@
+
 //Scrape button
 $("#scrape").on("click", function() {
     $.ajax({
