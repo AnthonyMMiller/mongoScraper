@@ -87,7 +87,9 @@ app.get("/scrape", function(req, res) {
       result.title =  $(element).find("h2.headline").text().trim();
       result.summary = $(element).find("p.summary").text().trim();;
       result.link = $(element).find("a").attr("href");
-
+      // ran out of time before I could get image, will add later
+      //result.img = $(element).parent().find("figure.media").find("img").attr("src");
+      
       // Use Article model to create a new entry
       var entry = new Article(result);
 

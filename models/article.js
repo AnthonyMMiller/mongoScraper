@@ -9,6 +9,11 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  //ran out of time trying to add picture, will add later
+  //img: {
+    //type: String,
+    //default: "/public/images/bg.jpg"
+  //},
   summary: {
     type: String,
     required: true
