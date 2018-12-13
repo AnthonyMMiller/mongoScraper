@@ -78,15 +78,15 @@ app.get("/saved", function(req, res) {
 
 // A GET request to scrape website
 app.get("/scrape", function(req, res) {
-  request("https://www.nytimes.com/", function(error, response, html) {
+  request("https://www.nytimes.com/section/world", function(error, response, html) {
     var $ = cheerio.load(html);
     $("article").each(function(i, element) {
       var result = {};
 
       // Add the title and summary of every link
-      result.title = $(this).children("h2").text();
-      result.summary = $(this).children(".summary").text();
-      result.link = $(this).children("h2").children("a").attr("href");
+      result.title = $(this).children("h2.headline").text();
+      result.summary = $(this).children("p.summary").text();
+      result.link = $(this).find("a").attr("href");
 
       // Use Article model to create a new entry
       var entry = new Article(result);
