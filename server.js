@@ -24,9 +24,9 @@ var app = express();
 
 // Use morgan and body parser
 app.use(logger("dev"));
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+// Setting up basic middleware for all Express requests
+app.use(bodyParser.urlencoded({ extended: false })); // Parses urlencoded bodies
+app.use(bodyParser.json()); // Send JSON responses
 
 // Make public a static dir
 app.use(express.static("public"));
@@ -208,10 +208,6 @@ app.delete("/notes/delete/:note_id/:article_id", function(req, res) {
     }
   });
 });
-
-// Setting up basic middleware for all Express requests
-app.use(bodyParser.urlencoded({ extended: false })); // Parses urlencoded bodies
-app.use(bodyParser.json()); // Send JSON responses
 
 // Listen on port
 app.listen(port, function() {
