@@ -1,10 +1,10 @@
-var mongoose = require("mongoose");
-var Note = require("./note");
+const mongoose = require("mongoose");
+const Note = require("./note");
 // Schema class
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 // article schema
-var ArticleSchema = new Schema({
+const ArticleSchema = new Schema({
   title: {
     type: String,
     required: true
@@ -33,7 +33,7 @@ var ArticleSchema = new Schema({
 });
 
 // Article model 
-var Article = mongoose.model("Article", ArticleSchema);
+const Article = mongoose.model("Article", ArticleSchema);
 
 // Export 
 module.exports = Article;

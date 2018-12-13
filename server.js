@@ -1,28 +1,26 @@
 // Dependencies
-var express = require("express");
-var bodyParser = require("body-parser");
-var logger = require("morgan");
-var mongoose = require("mongoose");
-var path = require("path");
-
+const express = require("express");
+const bodyParser = require("body-parser");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+const path = require("path");
 
 // Required
-var Note = require("./models/note.js");
-var Article = require("./models/article.js");
-require('dotenv').config();
+const Note = require("./models/note.js");
+const Article = require("./models/article.js");
 
 // Scraping tools
-var request = require("request");
-var cheerio = require("cheerio");
+const request = require("request");
+const cheerio = require("cheerio");
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
 
 //Define port
-var port = process.env.PORT || 3000
+const port = process.env.PORT || 3000
 
 // Initialize Express
-var app = express();
+const app = express();
 
 // Use morgan and body parser
 app.use(logger("dev"));
@@ -34,7 +32,7 @@ app.use(bodyParser.json()); // Send JSON responses
 app.use(express.static("public"));
 
 // Set Handlebars.
-var exphbs = require("express-handlebars");
+const exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({
     defaultLayout: "main",
@@ -44,14 +42,8 @@ app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
 //mongoose.connect("mongodb://heroku_jmv816f9:5j1nd4taq42hi29bfm5hobeujd@ds133192.mlab.com:33192/heroku_jmv816f9");
-//mongoose.connect("mongodb://localhost/mongoscraper");
-//var db = mongoose.connection;
-
-
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoscraper";
-
-mongoose.connect(MONGODB_URI);
-
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mongoscraper");
+const db = mongoose.connection;
 
 db.on("error", function(error) {
   console.log("Mongoose Error: ", error);
@@ -67,7 +59,7 @@ db.once("open", function() {
 //GET requests to render Handlebars pages
 app.get("/", function(req, res) {
   Article.find({"saved": false}, function(error, data) {
-    var hbsObject = {
+    let hbsObject = {
       article: data
     };
     console.log(hbsObject);
@@ -77,7 +69,7 @@ app.get("/", function(req, res) {
 
 app.get("/saved", function(req, res) {
   Article.find({"saved": true}).populate("notes").exec(function(error, articles) {
-    var hbsObject = {
+    let hbsObject = {
       article: articles
     };
     res.render("saved", hbsObject);
@@ -87,19 +79,19 @@ app.get("/saved", function(req, res) {
 // A GET request to scrape website
 app.get("/scrape", function(req, res) {
   request("https://www.nytimes.com/section/world", function(error, response, html) {
-    var $ = cheerio.load(html);
+    let $ = cheerio.load(html);
     $("article").each(function(i, element) {
-      var result = {};
+      let result = {};
 
       // Add the title and summary of every link
       result.title =  $(element).find("h2.headline").text().trim();
       result.summary = $(element).find("p.summary").text().trim();;
       result.link = $(element).find("a").attr("href");
-      // ran out of time before I could get image, will add later
+      // ran out of time 
       //result.img = $(element).parent().find("figure.media").find("img").attr("src");
       
       // Use Article model to create a new entry
-      var entry = new Article(result);
+      let entry = new Article(result);
 
       // Save to DB
       entry.save(function(err, doc) {
@@ -173,7 +165,7 @@ app.post("/articles/delete/:id", function(req, res) {
 
 // Create a new note
 app.post("/notes/save/:id", function(req, res) {
-  var newNote = new Note({
+  let newNote = new Note({
     body: req.body.text,
     article: req.params.id
   });
