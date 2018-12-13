@@ -84,9 +84,9 @@ app.get("/scrape", function(req, res) {
       var result = {};
 
       // Add the title and summary of every link
-      result.title = $(this).children("h2.headline").text();
-      result.summary = $(this).children("p.summary").text();
-      result.link = $(this).find("a").attr("href");
+      result.title =  $(element).find("h2.headline").text().trim();
+      result.summary = $(element).find("p.summary").text().trim();;
+      result.link = $(element).find("a").attr("href");
 
       // Use Article model to create a new entry
       var entry = new Article(result);
