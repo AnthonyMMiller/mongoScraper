@@ -7,9 +7,9 @@ Uses mongo database to store data, user is able to scrape news sites for informa
 Scrape the NY times for articles by clicking scrape, store artciles in DB for saved list. User has ability to add comments to articles that user selected to save.
 
 ## Requirements
-*mongo DB
-*express
-*mongoose
-*morgan
-*body-parser
-*nodeJS
+*mongo DB 
+*express  
+*mongoose  
+*morgan  
+*body-parser 
+*nodeJS  
