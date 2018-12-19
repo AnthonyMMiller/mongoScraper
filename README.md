@@ -13,5 +13,5 @@ Scrape the NY times for articles by clicking scrape, store artciles in DB for sa
 *express  
 *mongoose  
 *morgan  
-*body-parser 
+*body-parser   
 *nodeJS  
